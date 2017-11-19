@@ -54,6 +54,7 @@ resource "aws_subnet" "public_web_server_subnet_3" {
     }
 }
 
+/*
 resource "aws_subnet" "master_web_server_1" {
     vpc_id              = "${aws_vpc.scriptmyjob_vpc.id}"
     cidr_block          = "${lookup(var.vpc,"priv_ws_subnet_1")}"
@@ -80,6 +81,7 @@ resource "aws_subnet" "master_web_server_3" {
         Name = "${lookup(var.vpc,"name_subnet_2")}"
     }
 }
+*/
 
 resource "aws_subnet" "master_rds_1" {
     vpc_id              = "${aws_vpc.scriptmyjob_vpc.id}"
@@ -179,6 +181,7 @@ resource "aws_default_route_table" "public_web_server" {
 # Lambda Private Subnets
 ####################
 
+/*
 resource "aws_route_table" "lambda" {
     vpc_id = "${aws_vpc.scriptmyjob_vpc.id}"
     tags {
@@ -189,6 +192,7 @@ resource "aws_route_table" "lambda" {
         nat_gateway_id = "${aws_nat_gateway.gw.id}"
     }
 }
+*/
 
 # EFS
 ####################
@@ -211,6 +215,7 @@ resource "aws_route_table_association" "efs_3" {
 # Lambda
 ####################
 
+/*
 resource "aws_route_table_association" "lambda_1" {
     subnet_id      = "${aws_subnet.lambda_1.id}"
     route_table_id = "${aws_route_table.lambda.id}"
@@ -220,6 +225,7 @@ resource "aws_route_table_association" "lambda_2" {
     subnet_id      = "${aws_subnet.lambda_2.id}"
     route_table_id = "${aws_route_table.lambda.id}"
 }
+*/
 
 ########################################
 ### NAT Gateway ########################
@@ -229,12 +235,14 @@ resource "aws_route_table_association" "lambda_2" {
 # Refer here if you have questions:
 #     http://docs.aws.amazon.com/lambda/latest/dg/vpc.html#vpc-internet
 
+/*
 resource "aws_eip" "nat_ip" {}
 
 resource "aws_nat_gateway" "gw" {
     allocation_id = "${aws_eip.nat_ip.id}"
     subnet_id     = "${aws_subnet.master_web_server_1.id}"
 }
+*/
 
 ########################################
 ### Security Groups ####################
