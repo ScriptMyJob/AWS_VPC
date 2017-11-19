@@ -276,13 +276,15 @@ resource "aws_security_group" "web_inbound" {
 
 resource "aws_security_group" "mysql_inbound" {
     vpc_id          = "${aws_vpc.scriptmyjob_vpc.id}"
-    name            = "Mysql Inbound Wordpress"
+    name            = "Mysql | RDS Side"
     tags {
-        Name        = "Mysql Inbound Wordpress"
+        Name        = "Mysql | RDS Side"
     }
     ingress {
         cidr_blocks = [
-            "${lookup(var.vpc,"eip_address")}/32"
+            "${lookup(var.vpc,"pub_ws_subnet_1")}",
+            "${lookup(var.vpc,"pub_ws_subnet_2")}",
+            "${lookup(var.vpc,"pub_ws_subnet_3")}"
         ]
         from_port   = 3306
         to_port     = 3306
@@ -298,7 +300,7 @@ resource "aws_security_group" "ssh_inbound" {
     }
     ingress {
         cidr_blocks = [
-            "${var.trusted_hosts}",
+            "${var.vpc_secret_trusted_hosts}",
             "${lookup(var.vpc,"lambda_subnet_1")}",
             "${lookup(var.vpc,"lambda_subnet_2")}"
         ]
@@ -321,13 +323,13 @@ resource "aws_security_group" "web_inbound_trusted" {
         Name        = "Inbound Web services from DFWHQ"
     }
     ingress {
-        cidr_blocks = ["${var.trusted_hosts}"]
+        cidr_blocks = ["${var.vpc_secret_trusted_hosts}"]
         from_port   = 443
         to_port     = 443
         protocol    = "tcp"
     }
     ingress {
-        cidr_blocks = ["${var.trusted_hosts}"]
+        cidr_blocks = ["${var.vpc_secret_trusted_hosts}"]
         from_port   = 80
         to_port     = 80
         protocol    = "tcp"
