@@ -41,6 +41,26 @@ variable "vpc" {
     }
 }
 
+variable "ec2" {
+    type = "map"
+    default = {
+        policy      = <<EC2_POLICY
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "ec2.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+EC2_POLICY
+    }
+}
+
 variable "trusted_hosts" {
     type    = "list"
     default = [
