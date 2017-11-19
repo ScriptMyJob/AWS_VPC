@@ -61,14 +61,6 @@ EC2_POLICY
     }
 }
 
-variable "trusted_hosts" {
-    type    = "list"
-    default = [
-        "47.186.107.54/32",
-        "74.202.32.198/32"
-    ]
-}
-
 variable "efs" {
     type = "map"
     default = {
