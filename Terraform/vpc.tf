@@ -318,9 +318,9 @@ resource "aws_security_group" "ssh_inbound" {
 
 resource "aws_security_group" "web_inbound_trusted" {
     vpc_id          = "${aws_vpc.scriptmyjob_vpc.id}"
-    name            = "Inbound Web services from DFWHQ"
+    name            = "Inbound Web (Trusted Networks)"
     tags {
-        Name        = "Inbound Web services from DFWHQ"
+        Name        = "Inbound Web (Trusted Networks)"
     }
     ingress {
         cidr_blocks = ["${var.vpc_secret_trusted_hosts}"]
