@@ -85,7 +85,8 @@ resource "aws_iam_role" "grimoire" {
 resource "aws_iam_policy_attachment" "associate_ip" {
     name            = "AssociateIP"
     roles           = [
-        "${aws_iam_role.associate_ip.name}"
+        "${aws_iam_role.associate_ip.name}",
+        "${aws_iam_role.grimoire.name}"
     ]
     policy_arn      = "${aws_iam_policy.associate_ip.arn}"
 }
@@ -99,14 +100,6 @@ resource "aws_iam_policy_attachment" "grimoire" {
         "${aws_iam_role.grimoire.name}",
     ]
     policy_arn      = "${aws_iam_policy.grimoire_backups.arn}"
-}
-
-resource "aws_iam_policy_attachment" "grimoire_associate_ip" {
-    name            = "AssociateIP"
-    roles           = [
-        "${aws_iam_role.grimoire.name}"
-    ]
-    policy_arn      = "${aws_iam_policy.associate_ip.arn}"
 }
 
 ########################################

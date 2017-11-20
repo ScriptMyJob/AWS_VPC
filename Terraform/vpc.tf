@@ -276,9 +276,9 @@ resource "aws_security_group" "web_inbound" {
 
 resource "aws_security_group" "mysql_inbound" {
     vpc_id          = "${aws_vpc.scriptmyjob_vpc.id}"
-    name            = "Mysql | RDS Side"
+    name            = "Mysql: RDS Side"
     tags {
-        Name        = "Mysql | RDS Side"
+        Name        = "Mysql: RDS Side"
     }
     ingress {
         cidr_blocks = [
