@@ -88,7 +88,7 @@ resource "aws_subnet" "master_rds_1" {
     cidr_block          = "${lookup(var.vpc,"rds_subnet_1")}"
     availability_zone   = "${data.aws_availability_zones.available.names[0]}"
     tags {
-        Name = "${lookup(var.vpc,"db_subnet_3")}"
+        Name = "${lookup(var.vpc,"db_subnet_1")}"
     }
 }
 
