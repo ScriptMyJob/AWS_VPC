@@ -86,9 +86,9 @@ resource "aws_subnet" "master_web_server_3" {
 resource "aws_subnet" "master_rds_1" {
     vpc_id              = "${aws_vpc.scriptmyjob_vpc.id}"
     cidr_block          = "${lookup(var.vpc,"rds_subnet_1")}"
-    availability_zone   = "${data.aws_availability_zones.available.names[2]}"
+    availability_zone   = "${data.aws_availability_zones.available.names[0]}"
     tags {
-        Name = "${lookup(var.vpc,"name_subnet_3")}"
+        Name = "${lookup(var.vpc,"db_subnet_3")}"
     }
 }
 
@@ -97,7 +97,16 @@ resource "aws_subnet" "master_rds_2" {
     cidr_block          = "${lookup(var.vpc,"rds_subnet_2")}"
     availability_zone   = "${data.aws_availability_zones.available.names[1]}"
     tags {
-        Name = "${lookup(var.vpc,"name_subnet_4")}"
+        Name = "${lookup(var.vpc,"db_subnet_2")}"
+    }
+}
+
+resource "aws_subnet" "master_rds_3" {
+    vpc_id              = "${aws_vpc.scriptmyjob_vpc.id}"
+    cidr_block          = "${lookup(var.vpc,"rds_subnet_3")}"
+    availability_zone   = "${data.aws_availability_zones.available.names[2]}"
+    tags {
+        Name = "${lookup(var.vpc,"db_subnet_3")}"
     }
 }
 
