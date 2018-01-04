@@ -301,6 +301,40 @@ resource "aws_security_group" "mysql_inbound" {
     }
 }
 
+resource "aws_security_group" "rdp_inbound" {
+    vpc_id          = "${aws_vpc.scriptmyjob_vpc.id}"
+    name            = "RDP and WinRM from trusted networks and Lambda"
+    tags {
+        Name        = "RDP and WinRM from trusted networks and Lambda"
+    }
+    ingress {
+        cidr_blocks = [
+            "${var.vpc_secret_trusted_hosts}",
+            "${lookup(var.vpc,"lambda_subnet_1")}",
+            "${lookup(var.vpc,"lambda_subnet_2")}"
+        ]
+        from_port   = 5985
+        to_port     = 5985
+        protocol    = "tcp"
+    }
+    ingress {
+        cidr_blocks = [
+            "${var.vpc_secret_trusted_hosts}",
+            "${lookup(var.vpc,"lambda_subnet_1")}",
+            "${lookup(var.vpc,"lambda_subnet_2")}"
+        ]
+        from_port   = 3389
+        to_port     = 3389
+        protocol    = "tcp"
+    }
+    egress {
+        cidr_blocks = ["0.0.0.0/0"]
+        from_port   = 0
+        to_port     = 0
+        protocol    = "-1"
+    }
+}
+
 resource "aws_security_group" "ssh_inbound" {
     vpc_id          = "${aws_vpc.scriptmyjob_vpc.id}"
     name            = "SSH from trusted networks and Lambda"
