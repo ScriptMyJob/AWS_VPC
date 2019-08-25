@@ -2,4 +2,4 @@
 
 Check it out on GitLab:
 
-https://gitlab.com/scriptmyjob/VPC
+https://gitlab.com/aztek-io/VPC
